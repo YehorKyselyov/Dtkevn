@@ -16,13 +16,26 @@ public class TextDisplay : MonoBehaviour
         PLAYING, 
         COMPLETED
     }
-    void Start()
+    public void PlayScene(StoryScene scene)
+    {
+        currentScene = scene;
+        sentenceNumber = -1;
+        PlayNextSentence();
+    }
+    public void PlayNextSentence()
     {
         StartCoroutine(TypeText(currentScene.sentences[++sentenceNumber].text));
         speakerNameText.text = currentScene.sentences[sentenceNumber].speaker.speakerName;
         speakerNameText.color = currentScene.sentences[sentenceNumber].speaker.textColor;
     }
-
+    public bool IsCompleted()
+    {
+        return state == State.COMPLETED;
+    }
+    public bool IsLastSentence()
+    {
+        return sentenceNumber + 1 == currentScene.sentences.Count;
+    }
     private IEnumerator TypeText(string text)
     {
         barText.text = "";

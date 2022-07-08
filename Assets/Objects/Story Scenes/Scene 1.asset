@@ -17,5 +17,5 @@ MonoBehaviour:
     speaker: {fileID: 11400000, guid: c5303929480c734468abc62dfc210770, type: 2}
   - text: Better to hide in shadows
     speaker: {fileID: 11400000, guid: c5303929480c734468abc62dfc210770, type: 2}
-  background: {fileID: 21300000, guid: e470a34105551ae4fad6f45e8f9eb9d4, type: 3}
-  nextScene: {fileID: 11400000}
+  background: {fileID: 21300000, guid: 2704799fd8cc9784e8492d09dff8b374, type: 3}
+  nextScene: {fileID: 11400000, guid: 81d1b48f0e9cf8644a7b5cda929c5348, type: 2}
