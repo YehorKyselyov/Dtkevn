@@ -61,6 +61,9 @@
     <Compile Include="Assets\Scripts\Speaker.cs" />
     <Compile Include="Assets\Scripts\TextDisplay.cs" />
     <Compile Include="Assets\Scripts\StoryScene.cs" />
+    <Compile Include="Assets\Scripts\ChooseScene.cs" />
+    <Compile Include="Assets\Scripts\ChooseLabelContr.cs" />
+    <Compile Include="Assets\Scripts\ChoiceController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
