@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Choice  1
   m_EditorClassIdentifier: 
   labels:
-  - text: Go to the orgy
+  - text: Go to the party
     nextScene: {fileID: 11400000, guid: 81d1b48f0e9cf8644a7b5cda929c5348, type: 2}
   - text: Go to the city
     nextScene: {fileID: 11400000, guid: 250a545432d1f1b47bbc840bcc053436, type: 2}

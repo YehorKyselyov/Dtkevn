@@ -15,7 +15,14 @@ MonoBehaviour:
   sentences:
   - text: Well, still hot
     speaker: {fileID: 11400000, guid: c5303929480c734468abc62dfc210770, type: 2}
+    actions:
+    - speaker: {fileID: 11400000, guid: c5303929480c734468abc62dfc210770, type: 2}
+      spriteIndex: 0
+      actionType: 1
+      coords: {x: 0, y: 0}
+      moveSpeed: 0
   - text: I'll get going
     speaker: {fileID: 11400000, guid: c5303929480c734468abc62dfc210770, type: 2}
+    actions: []
   background: {fileID: 21300000, guid: 88365d6220b0b0b4ab166245b08758b9, type: 3}
   nextScene: {fileID: 11400000, guid: c094979f9de9f29469a5506f6593d075, type: 2}

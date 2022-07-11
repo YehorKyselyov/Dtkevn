@@ -20,7 +20,7 @@ public class GameControl : MonoBehaviour
     {
         if (currentScene is StoryScene)
         {
-            StoryScene storyScene = currentScene as StoryScene; 
+            StoryScene storyScene = currentScene as StoryScene;
             bottomBar.PlayScene(storyScene);
             backgroundController.SetImage(storyScene.background);
         }

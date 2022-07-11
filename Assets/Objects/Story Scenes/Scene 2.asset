@@ -15,7 +15,14 @@ MonoBehaviour:
   sentences:
   - text: It's much more better here
     speaker: {fileID: 11400000, guid: c5303929480c734468abc62dfc210770, type: 2}
+    actions:
+    - speaker: {fileID: 11400000, guid: c5303929480c734468abc62dfc210770, type: 2}
+      spriteIndex: 2
+      actionType: 1
+      coords: {x: 0, y: 0}
+      moveSpeed: 0
   - text: Ar u sure?
     speaker: {fileID: 11400000, guid: e9fcbb9604978f74a82ae7cede8283b3, type: 2}
+    actions: []
   background: {fileID: 21300000, guid: 0e94dcbd28868af40957ebc3d1328b24, type: 3}
   nextScene: {fileID: 11400000, guid: 250a545432d1f1b47bbc840bcc053436, type: 2}

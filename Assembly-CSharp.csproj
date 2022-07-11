@@ -56,14 +56,16 @@
     <Analyzer Include="D:\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\SpriteSwitcher.cs" />
     <Compile Include="Assets\Scripts\GameControl.cs" />
     <Compile Include="Assets\Scripts\BackgroundController.cs" />
-    <Compile Include="Assets\Scripts\Speaker.cs" />
-    <Compile Include="Assets\Scripts\TextDisplay.cs" />
-    <Compile Include="Assets\Scripts\StoryScene.cs" />
-    <Compile Include="Assets\Scripts\ChooseScene.cs" />
     <Compile Include="Assets\Scripts\ChooseLabelContr.cs" />
     <Compile Include="Assets\Scripts\ChoiceController.cs" />
+    <Compile Include="Assets\Scripts\Speaker.cs" />
+    <Compile Include="Assets\Scripts\SpriteController.cs" />
+    <Compile Include="Assets\Scripts\TextDisplay.cs" />
+    <Compile Include="Assets\Scripts\ChooseScene.cs" />
+    <Compile Include="Assets\Scripts\StoryScene.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

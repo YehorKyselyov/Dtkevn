@@ -377,6 +377,8 @@
 "Assets/Scripts/ChooseScene.cs"
 "Assets/Scripts/GameControl.cs"
 "Assets/Scripts/Speaker.cs"
+"Assets/Scripts/SpriteController.cs"
+"Assets/Scripts/SpriteSwitcher.cs"
 "Assets/Scripts/StoryScene.cs"
 "Assets/Scripts/TextDisplay.cs"
 -langversion:9.0

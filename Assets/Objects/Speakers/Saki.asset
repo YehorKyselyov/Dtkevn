@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ca16daea19f77140af316f2d32fa6e8, type: 3}
+  m_Name: Saki
+  m_EditorClassIdentifier: 
+  speakerName: Saki
+  textColor: {r: 0.5060954, g: 0, b: 1, a: 1}
+  sprites:
+  - {fileID: 21300000, guid: 3920ef81a72b55445b666b9ba96b8f78, type: 3}
+  - {fileID: 21300000, guid: d62d00e1e4404874aa31651916838a7c, type: 3}
+  - {fileID: 21300000, guid: b3847ea193ae8c641b4321c12b6f3a69, type: 3}
+  - {fileID: 21300000, guid: c4c6a66c63b81f545b53278a87268f52, type: 3}
+  - {fileID: 21300000, guid: d6b26de5c8e7c0149b33a6d893b7e86c, type: 3}
+  - {fileID: 21300000, guid: 120f391936790ac44b78fc3266ab758f, type: 3}
+  prefab: {fileID: -6424514822037459207, guid: b595a2f1573cc504a9f187df04049a00, type: 3}
