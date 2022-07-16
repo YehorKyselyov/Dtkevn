@@ -139,16 +139,16 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -8416936298347051777}
-    m_Position: {x: 0, y: 20, z: 0}
+    m_Position: {x: 500, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4537023647418285790}
-    m_Position: {x: 220, y: 20, z: 0}
+    m_Position: {x: 260, y: 130, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4405946070198170226}
-    m_Position: {x: 450, y: 20, z: 0}
+    m_Position: {x: 380, y: 200, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8464307953612811272}
-    m_Position: {x: 700, y: 20, z: 0}
+    m_Position: {x: 540, y: 260, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6272723784866673543}
     m_Position: {x: 119.31769, y: 284.97644, z: 0}
@@ -163,7 +163,7 @@ AnimatorStateMachine:
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 360, y: -130, z: 0}
   m_EntryPosition: {x: 40, y: 210, z: 0}
-  m_ExitPosition: {x: 790, y: 240, z: 0}
+  m_ExitPosition: {x: 830, y: 340, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: -6272723784866673543}
 --- !u!1101 &-46589591119087713
@@ -200,12 +200,6 @@ AnimatorController:
   m_Name: Saki
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: Hide
-    m_Type: 9
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
   - m_Name: Show
     m_Type: 9
     m_DefaultFloat: 0
@@ -213,6 +207,12 @@ AnimatorController:
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: SwitchFirst
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: Hide
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0

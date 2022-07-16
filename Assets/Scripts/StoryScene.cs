@@ -10,12 +10,17 @@ public class StoryScene: GameScene
     public Sprite background;
     public GameScene nextScene;
 
+    public bool playAnimation;
+
     [System.Serializable]
     public struct Sentence
     {
         public string text;
         public Speaker speaker;
         public List<Action> actions;
+
+        public AudioClip music;
+        public AudioClip sound;
 
         [System.Serializable]
         public struct Action

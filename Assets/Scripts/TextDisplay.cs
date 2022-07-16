@@ -8,6 +8,8 @@ public class TextDisplay : MonoBehaviour
     public TextMeshProUGUI barText;
     public TextMeshProUGUI speakerNameText;
 
+    public GameControl gameControl;
+
     private StoryScene currentScene;
     private int sentenceNumber = -1;
     private State state = State.COMPLETED;
@@ -44,9 +46,14 @@ public class TextDisplay : MonoBehaviour
     {
         barText.text = "";
     }
+    public void ClearSpeaker()
+    {
+        speakerNameText.text = "";
+    }
     public void PlayScene(StoryScene scene)
     {
         currentScene = scene;
+        if (scene.playAnimation) sprites = new Dictionary<Speaker, SpriteController>();
         sentenceNumber = -1;
         PlayNextSentence();
     }
@@ -80,6 +87,7 @@ public class TextDisplay : MonoBehaviour
                 break;
             }
         }
+        gameControl.SetStateIDLE();
     }
     private void ActSpeakers()
     {
@@ -136,9 +144,39 @@ public class TextDisplay : MonoBehaviour
                 }
                 break;
         }
-        if (controller != null)
+        
+    }
+    private SpriteController GetSpriteController(Speaker speaker)
+    {
+        SpriteController controller = null;
+        sprites.TryGetValue(speaker, out controller);
+        return controller;
+    }
+    public void HideSprites()
+    {
+        for (int i = 0; i < currentScene.sentences.Count; i++)
         {
-            controller.SwitchSprite(action.speaker.sprites[action.spriteIndex]);
+            for (int j = 0; j < currentScene.sentences[i].actions.Count; j++)
+            {
+                SpriteController controller = sprites[currentScene.sentences[i].actions[j].speaker];
+                CanvasGroup canvas = controller.gameObject.GetComponent<CanvasGroup>(); 
+                if (canvas.alpha != 0)
+                {
+                    controller.Hide();
+                }
+            }            
         }
+    }
+ 
+    public void DeleteSprites()
+    {
+        for (var j = spritesPrefab.transform.childCount - 1; j >= 0; j--)
+        {
+            Object.Destroy(spritesPrefab.transform.GetChild(j).gameObject);
+        }
+    }
+    public int GetSentenceIdex()
+    {
+        return sentenceNumber;
     }
 }
