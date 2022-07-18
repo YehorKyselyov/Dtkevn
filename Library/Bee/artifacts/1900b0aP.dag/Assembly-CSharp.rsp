@@ -301,6 +301,7 @@
 -r:"D:/Unity/UEditor/2021.3.5f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/Variations/mono/Managed/UnityEngine.VRModule.dll"
 -r:"D:/Unity/UEditor/2021.3.5f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/Variations/mono/Managed/UnityEngine.WindModule.dll"
 -r:"D:/Unity/UEditor/2021.3.5f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/Variations/mono/Managed/UnityEngine.XRModule.dll"
+-r:"Library/Bee/artifacts/1900b0aP.dag/Assembly-CSharp-firstpass.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aP.dag/Unity.2D.Animation.Runtime.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aP.dag/Unity.2D.Common.Runtime.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aP.dag/Unity.2D.IK.Runtime.ref.dll"
@@ -328,11 +329,12 @@
 "Assets/Scripts/CursorController.cs"
 "Assets/Scripts/GameControl.cs"
 "Assets/Scripts/PauseController.cs"
+"Assets/Scripts/SaveData.cs"
+"Assets/Scripts/SaveManager.cs"
 "Assets/Scripts/Speaker.cs"
 "Assets/Scripts/SpriteController.cs"
 "Assets/Scripts/SpriteSwitcher.cs"
 "Assets/Scripts/StoryScene.cs"
-"Assets/Scripts/Task.cs"
 "Assets/Scripts/TextDisplay.cs"
 -langversion:9.0
 

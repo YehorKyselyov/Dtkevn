@@ -10,6 +10,7 @@ public class GameControl : MonoBehaviour
     public ChoiceController choiceController;
     public AudioController audioController;
     public PauseController pauseController;
+    public SaveManager saveManager;
 
 
     private State state = State.IDLE;
@@ -23,42 +24,65 @@ public class GameControl : MonoBehaviour
     }
     void Start()
     {
-       
-        if (currentScene is StoryScene)
-        {
-            StoryScene storyScene = currentScene as StoryScene;
-            bottomBar.PlayScene(storyScene);
-            backgroundController.SetImage(storyScene.background);
-            PlayAudio(storyScene.sentences[0]);
-        }
 
+        if (!SaveData.load)
+        {
+            if (currentScene is StoryScene)
+            {
+                StoryScene storyScene = currentScene as StoryScene;
+                bottomBar.PlayScene(storyScene);
+                backgroundController.SetImage(storyScene.background);
+                PlayAudio(storyScene.sentences[0]);
+            }
+        }
+        else
+        {
+            saveManager.LoadData();
+            PlayAudio((currentScene as StoryScene).sentences[0]);
+        }
     }
 
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && state == State.IDLE)
+        if(state == State.IDLE)
         {
-            if (bottomBar.IsCompleted())
+            if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)))
             {
-                if (bottomBar.IsLastSentence())
+                if (bottomBar.IsCompleted())
                 {
-                    PlayScene((currentScene as StoryScene).nextScene);
+                    if (bottomBar.IsLastSentence())
+                    {
+                        PlayScene((currentScene as StoryScene).nextScene);
+                    }
+                    else
+                    {
+                        bottomBar.PlayNextSentence();
+                        PlayAudio((currentScene as StoryScene).sentences[bottomBar.GetSentenceIdex()]);
+                    }
                 }
                 else
                 {
-                    state = State.ANIMATE;
-                    bottomBar.PlayNextSentence();
-                    PlayAudio((currentScene as StoryScene).sentences[bottomBar.GetSentenceIdex()]);
+                    bottomBar.SpeedUp();
                 }
             }
+            if(bottomBar.IsCompleted())
+            {
+                if (Input.GetMouseButton(1))
+                {
+
+                    state = State.PAUSE;
+                    pauseController.SetPause();
+                }
+                
+            }
+            
         }
         if (state == State.DELETESPRITES) bottomBar.DeleteSprites();
-        if(Input.GetMouseButton(1) && state == State.IDLE)
+        if (Input.GetKeyDown(KeyCode.Backspace) && bottomBar.sentenceNumber != 0)
         {
-
-            state = State.PAUSE;
-            pauseController.SetPause();
+            bottomBar.GoBack();
         }
+
     }
 
     public void PlayScene(GameScene scene)
@@ -111,5 +135,9 @@ public class GameControl : MonoBehaviour
     public void SetStateIDLE()
     {
         state = State.IDLE;
+    }
+    public void SetStateANIMATE()
+    {
+        state = State.ANIMATE;
     }
 }

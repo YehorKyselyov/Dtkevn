@@ -11,7 +11,7 @@ public class TextDisplay : MonoBehaviour
     public GameControl gameControl;
 
     private StoryScene currentScene;
-    private int sentenceNumber = -1;
+    public int sentenceNumber = -1;
     private State state = State.COMPLETED;
 
     public Dictionary<Speaker, SpriteController> sprites;
@@ -19,9 +19,13 @@ public class TextDisplay : MonoBehaviour
 
     private Animator animator;
     private bool isHidden = false;
+
+    private Coroutine typingCoroutine;
+    private float speedFactor = 1f;
     private enum State
     {
-        PLAYING, 
+        PLAYING,
+        SPEED_UP,
         COMPLETED
     }
     private void Start()
@@ -52,22 +56,52 @@ public class TextDisplay : MonoBehaviour
     }
     public void PlayScene(StoryScene scene)
     {
+        gameControl.SetStateANIMATE();
         currentScene = scene;
         if (scene.playAnimation) sprites = new Dictionary<Speaker, SpriteController>();
         sentenceNumber = -1;
         PlayNextSentence();
     }
-    public void PlayNextSentence()
+    public void LoadScene(GameScene scene, int sentenceIndex)
     {
-        StartCoroutine(TypeText(currentScene.sentences[++sentenceNumber].text));
+        DeleteSprites();
+        if(currentScene != scene) currentScene = scene as StoryScene;
+        if(gameControl.currentScene != scene) gameControl.currentScene = scene;
+        sprites = new Dictionary<Speaker, SpriteController>();
+        sentenceNumber = sentenceIndex - 1;
+        gameControl.backgroundController.SwitchImage((scene as StoryScene).background);
+        RecreateSprites();
+        PlayNextSentence();
+    }
+    private void RecreateSprites()
+    {
+        for (int i = 0; i < sentenceNumber + 1; i++)
+        {
+            List<StoryScene.Sentence.Action> actions = currentScene.sentences[i].actions;
+            for (int j = 0; j < actions.Count; j++)
+            {
+                ActSpeaker(actions[j]);
+            }
+        }
+    }
+    public void PlayNextSentence(bool isAnimated = true)
+    {
+        speedFactor = 1f;
+        typingCoroutine = StartCoroutine(TypeText(currentScene.sentences[++sentenceNumber].text));
         speakerNameText.text = currentScene.sentences[sentenceNumber].speaker.speakerName;
         speakerNameText.color = currentScene.sentences[sentenceNumber].speaker.textColor;
-        ActSpeakers();
+        ActSpeakers(isAnimated);
     }
     public bool IsCompleted()
     {
         return state == State.COMPLETED;
     }
+    public void SpeedUp()
+    {
+        state = State.SPEED_UP;
+        speedFactor = 0.15F;
+    }
+
     public bool IsLastSentence()
     {
         return sentenceNumber + 1 == currentScene.sentences.Count;
@@ -80,7 +114,7 @@ public class TextDisplay : MonoBehaviour
         while(state != State.COMPLETED)
         {
             barText.text += text[wordIndex];
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(speedFactor * 0.05f);
             if (++wordIndex == text.Length)
             {
                 state = State.COMPLETED;
@@ -89,59 +123,44 @@ public class TextDisplay : MonoBehaviour
         }
         gameControl.SetStateIDLE();
     }
-    private void ActSpeakers()
+    private void ActSpeakers(bool isAnimated = true)
     {
         List<StoryScene.Sentence.Action> actions = currentScene.sentences[sentenceNumber].actions;
         for (int i = 0; i < actions.Count; i++)
         {
-            ActSpeaker(actions[i]);
+            ActSpeaker(actions[i],isAnimated);
         }
     }
-    private void ActSpeaker(StoryScene.Sentence.Action action)
+    private void ActSpeaker(StoryScene.Sentence.Action action, bool isAnimated = true)
     {
-        SpriteController controller = null;
+        SpriteController controller;
+        if (!sprites.ContainsKey(action.speaker))
+        {
+            controller = Instantiate(action.speaker.prefab.gameObject, spritesPrefab.transform)
+                .GetComponent<SpriteController>();
+            sprites.Add(action.speaker, controller);
+        }
+        else
+        {
+            controller = sprites[action.speaker];
+        }
         switch (action.actionType)
         {
-            case StoryScene.Sentence.Action.Type.APPEAR:
-                if (!sprites.ContainsKey(action.speaker))
-                {
-                    controller = Instantiate(action.speaker.prefab.gameObject, spritesPrefab.transform)
-                        .GetComponent<SpriteController>();
-                    sprites.Add(action.speaker, controller);
-                }
-                else
-                {
-                    controller = sprites[action.speaker];
-                }
+            case StoryScene.Sentence.Action.Type.APPEAR:                
                 controller.Setup(action.speaker.sprites[action.spriteIndex]);
-                controller.Show(action.coords);
+                controller.Show(action.coords, isAnimated);
                 return;
-            case StoryScene.Sentence.Action.Type.MOVE:
-                if (sprites.ContainsKey(action.speaker))
-                {
-                    controller = sprites[action.speaker];
-                    controller.Move(action.coords, action.moveSpeed);
-                }
+            case StoryScene.Sentence.Action.Type.MOVE:                
+                controller.Move(action.coords, action.moveSpeed, isAnimated);             
                 break;
             case StoryScene.Sentence.Action.Type.DISAPPEAR:
-                if (sprites.ContainsKey(action.speaker))
-                {
-                    controller = sprites[action.speaker];
-                    controller.Hide();
-                }
+                controller.Hide(isAnimated);
                 break;
             case StoryScene.Sentence.Action.Type.SWITCH:
-                if (sprites.ContainsKey(action.speaker))
-                {
-                    controller = sprites[action.speaker];
-                    controller.SwitchSprite(action.speaker.sprites[action.spriteIndex]);
-                }
+                controller.SwitchSprite(action.speaker.sprites[action.spriteIndex], isAnimated);
                 break;
             case StoryScene.Sentence.Action.Type.NONE:
-                if (sprites.ContainsKey(action.speaker))
-                {
-                    controller = sprites[action.speaker];
-                }
+                controller = sprites[action.speaker];
                 break;
         }
         
@@ -179,4 +198,19 @@ public class TextDisplay : MonoBehaviour
     {
         return sentenceNumber;
     }
+    public void GoBack()
+    {
+        DeleteSprites();
+        sprites.Clear();
+        sentenceNumber -= 2;
+        StopTyping();
+        RecreateSprites();
+        PlayNextSentence(false);
+    }
+    public void StopTyping()
+    {
+        state = State.COMPLETED;
+        StopCoroutine(typingCoroutine);
+    }
+    
 }
